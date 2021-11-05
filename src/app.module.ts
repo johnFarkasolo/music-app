@@ -4,6 +4,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { FileModule } from './file/file.module';
 import { TrackModule } from './track/track.module';
 import * as path from 'path';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
@@ -11,7 +14,7 @@ import * as path from 'path';
       rootPath: path.resolve(__dirname, 'static'),
     }),
     MongooseModule.forRoot(
-      'mongodb+srv://admin:admin@cluster0.4xfzu.mongodb.net/music-app?retryWrites=true&w=majority',
+      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.4xfzu.mongodb.net/music-app?retryWrites=true&w=majority`,
     ),
     TrackModule,
     FileModule,
